@@ -1,6 +1,8 @@
 package br.com.allanflm.screenmatch.model;
 
-public class Movie extends Title{
+import br.com.allanflm.screenmatch.calculation.Sortable;
+
+public class Movie extends Title implements Sortable {
     private String director;
 
     public String getDirector() {
@@ -9,5 +11,10 @@ public class Movie extends Title{
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    @Override
+    public int getClassification() {
+        return (int) returnTheEvaluation() / 2;
     }
 }
