@@ -17,4 +17,9 @@ public class Movie extends Title implements Sortable {
     public int getClassification() {
         return (int) returnTheEvaluation() / 2;
     }
+
+    @Override
+    public String toString() {
+        return "Movie: " + this.getName() + " [" + getReleaseYear() + "]";
+    }
 }
