@@ -3,7 +3,12 @@ package br.com.allanflm.screenmatch.model;
 import br.com.allanflm.screenmatch.calculation.Sortable;
 
 public class Movie extends Title implements Sortable {
+
     private String director;
+
+    public Movie(String name, int releaseYear) {
+        super(name, releaseYear);
+    }
 
     public String getDirector() {
         return director;
@@ -20,6 +25,6 @@ public class Movie extends Title implements Sortable {
 
     @Override
     public String toString() {
-        return "Movie: " + this.getName() + " [" + getReleaseYear() + "]";
+        return "Movie: " + this.getName() + " (" + getReleaseYear() + ")";
     }
 }
