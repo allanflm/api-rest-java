@@ -1,6 +1,6 @@
 package br.com.allanflm.screenmatch.model;
 
-public class Title {
+public class Title implements Comparable<Title>{
     private String name;
     private int releaseYear;
     private boolean includedPlan;
@@ -76,4 +76,8 @@ public class Title {
         return sumOfRatings / totalAssessment;
     }
 
+    @Override
+    public int compareTo(Title anotherTitle) {
+        return this.getName().compareTo(anotherTitle.getName());
+    }
 }
