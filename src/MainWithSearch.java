@@ -1,14 +1,21 @@
+import br.com.allanflm.screenmatch.model.OMDBTitle;
+import br.com.allanflm.screenmatch.model.Title;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
+import java.util.WeakHashMap;
 
 public class MainWithSearch {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter the name of the movie you want: ");
+        System.out.print("Enter the name of the movie you want: ");
         var searchedMovie = input.nextLine();
         String address = "https://www.omdbapi.com/?t=" + searchedMovie + "&apikey=b97536d8";
         HttpClient client = HttpClient.newHttpClient();
@@ -18,6 +25,18 @@ public class MainWithSearch {
         HttpResponse<String> response = client
                 .send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
+
+        String json = response.body();
+
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .create();
+        Title title = gson.fromJson(json, Title.class);
+        OMDBTitle omdbTitle = gson.fromJson(json, OMDBTitle.class);
+
+        Title myTitle = new Title(omdbTitle);
+        System.out.println("Titulo ja convertido");
+        System.out.println(myTitle);
 
     }
 }
