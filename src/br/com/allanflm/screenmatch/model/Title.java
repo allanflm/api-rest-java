@@ -1,11 +1,9 @@
 package br.com.allanflm.screenmatch.model;
 
-import com.google.gson.annotations.SerializedName;
+import br.com.allanflm.screenmatch.exceptions.YearConversationErrorException;
 
-public class Title implements Comparable<Title>{
-    @SerializedName("Title")
+public class Title implements Comparable<Title> {
     private String name;
-    @SerializedName("Year")
     private int releaseYear;
     private boolean includedPlan;
     private double sumOfRatings;
@@ -19,8 +17,13 @@ public class Title implements Comparable<Title>{
 
     public Title(OMDBTitle omdbTitle) {
         this.name = omdbTitle.title();
+
+        if(omdbTitle.year().length() > 4){
+            throw  new YearConversationErrorException("I can't convert the year because it has more than 4 characters.");
+        }
+
         this.releaseYear = Integer.valueOf(omdbTitle.year());
-        this.durationInMinutes = Integer.valueOf(omdbTitle.runtime().substring(0,2));
+        this.durationInMinutes = Integer.valueOf(omdbTitle.runtime().substring(0, 2));
     }
 
     public String getName() {
