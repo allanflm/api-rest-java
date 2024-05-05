@@ -18,8 +18,8 @@ public class Title implements Comparable<Title> {
     public Title(OMDBTitle omdbTitle) {
         this.name = omdbTitle.title();
 
-        if(omdbTitle.year().length() > 4){
-            throw  new YearConversationErrorException("I can't convert the year because it has more than 4 characters.");
+        if (omdbTitle.year().length() > 4) {
+            throw new YearConversationErrorException("I can't convert the year because it has more than 4 characters.");
         }
 
         this.releaseYear = Integer.valueOf(omdbTitle.year());
@@ -96,9 +96,7 @@ public class Title implements Comparable<Title> {
 
     @Override
     public String toString() {
-        return "Title {" +
-                "name='" + name + '\'' +
-                ", releaseYear=" + releaseYear +
-                '}' + "\n" + "Duration= " + durationInMinutes;
+        return "Movie [ " +
+                "Name = " + name + " | Release Year = " + releaseYear + " | Duration= " + durationInMinutes + " min." + "]";
     }
 }
