@@ -3,9 +3,12 @@ package br.com.allanflm.screenmatch.main;
 import br.com.allanflm.screenmatch.model.DataEpisode;
 import br.com.allanflm.screenmatch.model.DataSeason;
 import br.com.allanflm.screenmatch.model.DataSeries;
+import br.com.allanflm.screenmatch.model.Episode;
 import br.com.allanflm.screenmatch.service.ConsumptionAPI;
 import br.com.allanflm.screenmatch.service.ConvertsData;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -28,19 +31,19 @@ public class Main {
         System.out.println(dados);
 
 
-        List<DataSeason> seasonArrayList = new ArrayList<>();
+        List<DataSeason> seasons = new ArrayList<>();
 
         for (int i = 1; i <= dados.seasons(); i++) {
             json = consumo.getData(ENDERECO + seriesName.replace(" ", "+") + "&season=" + i + API_KEY);
             DataSeason dataSeason = convertsData.getData(json, DataSeason.class);
-            seasonArrayList.add(dataSeason);
+            seasons.add(dataSeason);
 
         }
 
-        seasonArrayList.forEach(s -> s.episodios().forEach(e -> System.out.println(e.titulo())));
+        seasons.forEach(s -> s.episodios().forEach(e -> System.out.println(e.titulo())));
 
 
-        List<DataEpisode> dataEpisodes = seasonArrayList.stream()
+        List<DataEpisode> dataEpisodes = seasons.stream()
                 .flatMap(s -> s.episodios().stream())
                 .collect(Collectors.toList());
 
@@ -51,5 +54,27 @@ public class Main {
                 .limit(5)
                 .forEach(System.out::println);
 
+        List<Episode> episodes = seasons.stream()
+                .flatMap(t -> t.episodios().stream()
+                        .map(d -> new Episode(t.numero(), d))
+                ).collect(Collectors.toList());
+
+        episodes.forEach(System.out::println);
+
+        System.out.println("What year do you want to watch the episodes from? ");
+        var year = input.nextInt();
+        input.nextLine();
+
+        LocalDate date = LocalDate.of(year, 1, 1);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        episodes.stream()
+                .filter(e -> e.getReleaseDate() != null && e.getReleaseDate().isAfter(date))
+                .forEach(e -> System.out.println(
+                        "Season: " + e.getSeason() +
+                                "Episode: " + e.getTitle() +
+                                " Release date: " + e.getReleaseDate().format(formatter)
+                ));
     }
 }
