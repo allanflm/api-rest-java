@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 public class SerieController {
 
     @Autowired
-    private SerieRepository repository;
+    private SerieRepository repositorio;
 
     @GetMapping("/series")
     public List<SerieDTO> obterSeries() {
-        return repository.findAll()
+        return repositorio.findAll()
                 .stream()
                 .map(s -> new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getAvaliacao(), s.getGenero(), s.getAtores(), s.getPoster(), s.getSinopse()))
                 .collect(Collectors.toList());
