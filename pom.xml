@@ -33,6 +33,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.15.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.theokanning.openai-gpt3-java</groupId>
 			<artifactId>service</artifactId>
@@ -49,8 +50,6 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
-
 
 	</dependencies>
 

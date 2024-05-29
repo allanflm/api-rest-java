@@ -8,11 +8,11 @@ public enum Categoria {
     CRIME("Crime", "Crime");
 
     private String categoriaOmdb;
-    private String categoriaEmPortugues;
+    private String categoriaPortugues;
 
-    Categoria(String categoriaOmdb, String categoriaEmPortugues) {
+    Categoria(String categoriaOmdb, String categoriaPortugues){
         this.categoriaOmdb = categoriaOmdb;
-        this.categoriaEmPortugues = categoriaEmPortugues;
+        this.categoriaPortugues = categoriaPortugues;
     }
 
     public static Categoria fromString(String text) {
@@ -26,7 +26,7 @@ public enum Categoria {
 
     public static Categoria fromPortugues(String text) {
         for (Categoria categoria : Categoria.values()) {
-            if (categoria.categoriaEmPortugues.equalsIgnoreCase(text)) {
+            if (categoria.categoriaPortugues.equalsIgnoreCase(text)) {
                 return categoria;
             }
         }
