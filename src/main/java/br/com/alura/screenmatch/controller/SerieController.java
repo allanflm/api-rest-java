@@ -16,12 +16,16 @@ public class SerieController {
     @Autowired
     private SerieService service;
 
-    @GetMapping("/series")
+    @GetMapping
     public List<SerieDTO> obterSeries() {
         return service.obterTodasAsSeries();
     }
     @GetMapping("/top5")
     public List<SerieDTO> obterTop5Series(){
         return service.obterTop5Series();
+    }
+    @GetMapping("/lancamentos")
+    public List<SerieDTO> obterLancamentos(){
+        return service.obterLancamentos();
     }
 }
