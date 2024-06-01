@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch.controller;
 
+import br.com.alura.screenmatch.dto.EpisodioDTO;
 import br.com.alura.screenmatch.dto.SerieDTO;
 import br.com.alura.screenmatch.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +15,46 @@ import java.util.List;
 @RequestMapping("/series")
 public class SerieController {
 
-    @Autowired
-    private SerieService service;
+   @Autowired
+   private SerieService servico;
 
     @GetMapping
     public List<SerieDTO> obterSeries() {
-        return service.obterTodasAsSeries();
+       return servico.obterTodasAsSeries();
     }
+
     @GetMapping("/top5")
-    public List<SerieDTO> obterTop5Series(){
-        return service.obterTop5Series();
+    public List<SerieDTO> obterTop5Series() {
+        return servico.obterTop5Series();
     }
+
     @GetMapping("/lancamentos")
-    public List<SerieDTO> obterLancamentos(){
-        return service.obterLancamentos();
+    public List<SerieDTO> obterLancamentos() {
+        return servico.obterLancamentos();
     }
+
     @GetMapping("/{id}")
-    public SerieDTO  obterPorId(@PathVariable Long id){
-        return service.obterPorId(id);
+    public SerieDTO obterPorId(@PathVariable Long id) {
+        return servico.obterPorId(id);
+    }
+
+    @GetMapping("/{id}/temporadas/todas")
+    public List<EpisodioDTO> obterTodasTemporadas(@PathVariable Long id){
+        return servico.obterTodasTemporadas(id);
+    }
+
+    @GetMapping("/{id}/temporadas/{numero}")
+    public List<EpisodioDTO> obterTemporadasPorNumero(@PathVariable Long id, @PathVariable Long numero){
+        return servico.obterTemporadasPorNumero(id, numero);
+    }
+
+    @GetMapping("/{id}/temporadas/top")
+    public List<EpisodioDTO> obterTopEpisodios(@PathVariable Long id){
+        return servico.obterTopEpisodios(id);
+    }
+
+    @GetMapping("/categoria/{nomeGenero}")
+    public List<SerieDTO> obterSeriesPorCategoria(@PathVariable String nomeGenero){
+        return servico.obterSeriesPorCategoria(nomeGenero);
     }
 }
